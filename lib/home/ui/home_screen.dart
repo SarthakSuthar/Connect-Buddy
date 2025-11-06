@@ -11,11 +11,13 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        // leading: const SizedBox(),
+        automaticallyImplyLeading: false,
         title: Row(
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(60),
-              child: Image.asset("assets/images/profile.png"),
+              child: Image.asset("assets/images/profile.png", height: 50),
             ),
             const SizedBox(width: 10),
             Column(
@@ -88,7 +90,7 @@ class HomeScreen extends StatelessWidget {
 
             const SizedBox(height: 10),
 
-            InkWell(
+            GestureDetector(
               onTap: () {
                 showlog("see all tapped");
               },

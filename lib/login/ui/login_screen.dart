@@ -82,6 +82,8 @@ class _LoginScreenState extends State<LoginScreen> {
             AppButton(
               text: "Login",
               onTap: () {
+                context.push("/home");
+
                 showlog("Login button pressed");
               },
             ),

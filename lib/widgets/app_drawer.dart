@@ -1,7 +1,9 @@
 import 'dart:ui';
 
 import 'package:connect_buddy/theme/app_theme.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({super.key});
@@ -38,13 +40,46 @@ class AppDrawer extends StatelessWidget {
                 const SizedBox(height: 10),
                 const Text("Invite via Email", style: AppTheme.mediumRegular),
                 const Spacer(),
-                const Text("Logout", style: AppTheme.mediumBold),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).pop();
+                    showDialog(
+                      context: context,
+                      builder: (context) => logoutPopUp(context),
+                    );
+                  },
+                  child: const Text("Logout", style: AppTheme.mediumBold),
+                ),
                 const SizedBox(height: 20),
               ],
             ),
           ),
         ),
       ),
+    );
+  }
+
+  Widget logoutPopUp(BuildContext context) {
+    return CupertinoAlertDialog(
+      title: const Text("Logout", style: AppTheme.largeBold),
+      content: const Text(
+        "Do you want to exit your account?",
+        style: AppTheme.mediumRegular,
+      ),
+      actions: [
+        CupertinoButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          child: const Text("Cancel", style: AppTheme.mediumLite),
+        ),
+        CupertinoButton(
+          onPressed: () {
+            context.go('/login');
+          },
+          child: const Text("Confirm", style: AppTheme.mediumBold),
+        ),
+      ],
     );
   }
 }
