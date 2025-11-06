@@ -1,8 +1,11 @@
+import 'package:connect_buddy/login/bloc/login_bloc.dart';
 import 'package:connect_buddy/theme/app_theme.dart';
 import 'package:connect_buddy/utils.dart';
 import 'package:connect_buddy/widgets/app_btn.dart';
 import 'package:connect_buddy/widgets/app_input.dart';
+import 'package:connect_buddy/widgets/app_snackbar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -14,13 +17,14 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   bool? isRememberMe = false;
+
   @override
   Widget build(BuildContext context) {
     final loginFocus = FocusNode();
     final passwordFocus = FocusNode();
     final obscureText = true;
     final enabled = true;
-    final loginController = TextEditingController();
+    final emailController = TextEditingController();
     final passwordController = TextEditingController();
 
     return Scaffold(
@@ -37,7 +41,7 @@ class _LoginScreenState extends State<LoginScreen> {
             AppInput(
               title: "User Id",
               hint: "Enter User Id",
-              controller: loginController,
+              controller: emailController,
               focusNode: loginFocus,
               enabled: enabled,
             ),
@@ -79,13 +83,42 @@ class _LoginScreenState extends State<LoginScreen> {
 
             const SizedBox(height: 20),
 
-            AppButton(
-              text: "Login",
-              onTap: () {
-                context.push("/home");
-
-                showlog("Login button pressed");
+            BlocListener<LoginBloc, LoginState>(
+              listener: (context, state) {
+                if (state is LoginSuccess) {
+                  context.push("/home");
+                  appSnackBar(
+                    context,
+                    message: "Login successful",
+                    isError: false,
+                  );
+                } else if (state is LoginFailure) {
+                  appSnackBar(message: "Login failed", isError: true, context);
+                  showlog("Login failed");
+                }
               },
+              child: BlocBuilder<LoginBloc, LoginState>(
+                builder: (context, state) {
+                  if (state is LoginLoading) {
+                    return const CircularProgressIndicator();
+                  }
+                  return AppButton(
+                    text: "Login",
+                    onTap: () {
+                      showlog("Login button pressed");
+
+                      //TODO: have to check for validation by wraping below into if condition
+
+                      context.read<LoginBloc>().add(
+                        LoginBtnPressed(
+                          email: emailController.text,
+                          password: passwordController.text,
+                        ),
+                      );
+                    },
+                  );
+                },
+              ),
             ),
 
             const SizedBox(height: 20),
@@ -110,7 +143,40 @@ class _LoginScreenState extends State<LoginScreen> {
                 const SizedBox(width: 10),
                 Image.asset("assets/images/linkedin_icon.png"),
                 const SizedBox(width: 10),
-                Image.asset("assets/images/gmail_icon.png"),
+                BlocListener<LoginBloc, LoginState>(
+                  listener: (context, state) {
+                    if (state is LoginSuccess) {
+                      context.push("/home");
+                      appSnackBar(
+                        context,
+                        message: "Login successful",
+                        isError: false,
+                      );
+                    } else if (state is LoginFailure) {
+                      appSnackBar(
+                        message: "Google Sign in failed",
+                        isError: true,
+                        context,
+                      );
+                      showlog("Google Login failed");
+                    }
+                  },
+                  child: BlocBuilder<LoginBloc, LoginState>(
+                    builder: (context, state) {
+                      if (state is LoginLoading) {
+                        CircularProgressIndicator();
+                      }
+
+                      return GestureDetector(
+                        onTap: () {
+                          showlog("Google button pressed");
+                          context.read<LoginBloc>().add(GoogleBtnPressed());
+                        },
+                        child: Image.asset("assets/images/gmail_icon.png"),
+                      );
+                    },
+                  ),
+                ),
               ],
             ),
 
@@ -122,6 +188,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 Text("Not a member yet? "),
                 InkWell(
                   onTap: () {
+                    context.push("/registrationList");
                     showlog("Sign up button pressed");
                   },
                   child: Text(

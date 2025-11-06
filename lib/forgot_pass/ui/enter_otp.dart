@@ -70,7 +70,7 @@ class _EnterOtpState extends State<EnterOtp> {
                 child: AppButton(
                   text: "Continue",
                   onTap: () {
-                    context.go('/home');
+                    context.go('/resetPassword');
                     showlog("Continue button pressed");
                   },
                 ),
