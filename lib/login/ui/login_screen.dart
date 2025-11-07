@@ -94,7 +94,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     isError: false,
                   );
                 } else if (state is LoginFailure) {
-                  appSnackBar(message: "Login failed", isError: true, context);
+                  appSnackBar(message: state.message, isError: true, context);
                   showlog("Login failed");
                 }
               },
@@ -146,16 +146,16 @@ class _LoginScreenState extends State<LoginScreen> {
                 const SizedBox(width: 10),
                 BlocListener<LoginBloc, LoginState>(
                   listener: (context, state) {
-                    if (state is LoginSuccess) {
+                    if (state is GoogleLoginSuccess) {
                       context.push("/dashboard");
                       appSnackBar(
                         context,
                         message: "Login successful",
                         isError: false,
                       );
-                    } else if (state is LoginFailure) {
+                    } else if (state is GoogleLoginFailure) {
                       appSnackBar(
-                        message: "Google Sign in failed",
+                        message: state.message,
                         isError: true,
                         context,
                       );
@@ -164,7 +164,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   },
                   child: BlocBuilder<LoginBloc, LoginState>(
                     builder: (context, state) {
-                      if (state is LoginLoading) {
+                      if (state is GoogleLoginLoading) {
                         CircularProgressIndicator();
                       }
 

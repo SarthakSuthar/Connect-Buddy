@@ -21,7 +21,12 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       title: Text(
         title,
-        style: TextStyle(color: isPrimaryColor ? Colors.white : Colors.black),
+        style: TextStyle(
+          color: isPrimaryColor ? Colors.white : Colors.black,
+          fontFamily: 'Jost',
+          fontWeight: FontWeight.bold,
+          fontSize: 20,
+        ),
       ),
       centerTitle: true,
       leading: showBackButton

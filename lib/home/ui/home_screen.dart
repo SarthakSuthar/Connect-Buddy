@@ -37,7 +37,7 @@ class HomeScreen extends StatelessWidget {
                 onTap: () {
                   Scaffold.of(context).openEndDrawer();
                 },
-                child: const Icon(Icons.menu),
+                child: Image.asset("assets/images/menu_icon.png", scale: 1.5),
               ),
             ),
           ),

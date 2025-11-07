@@ -29,7 +29,7 @@ class AppScaffold extends StatelessWidget {
       ),
       endDrawer: const AppDrawer(),
       drawerScrimColor: Colors.transparent.withOpacity(0.1),
-      backgroundColor: Colors.white30,
+      // backgroundColor: Colors.white30,
       // endDrawerScrimColor: Colors.transparent,
       body: body,
     );

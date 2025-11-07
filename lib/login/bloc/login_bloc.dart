@@ -31,12 +31,12 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     GoogleBtnPressed event,
     Emitter<LoginState> emit,
   ) async {
-    emit(LoginLoading());
+    emit(GoogleLoginLoading());
 
     //TODO: have to handle google sign in
 
     await Future.delayed(const Duration(seconds: 3));
 
-    emit(LoginFailure());
+    emit(GoogleLoginFailure(message: "Google Login Failed"));
   }
 }

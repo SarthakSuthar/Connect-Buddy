@@ -3,8 +3,12 @@ import 'package:connect_buddy/forgot_pass/ui/enter_otp.dart';
 import 'package:connect_buddy/forgot_pass/ui/forgot_password.dart';
 import 'package:connect_buddy/forgot_pass/ui/reset_password.dart';
 import 'package:connect_buddy/home/ui/home_screen.dart';
+import 'package:connect_buddy/invite_via_mail/invite_via_email.dart';
 import 'package:connect_buddy/login/bloc/login_bloc.dart';
 import 'package:connect_buddy/login/ui/login_screen.dart';
+import 'package:connect_buddy/new_opportunity/new_opportunity.dart';
+import 'package:connect_buddy/notice/ui/notice_detail.dart';
+import 'package:connect_buddy/notice/ui/notice_list.dart';
 import 'package:connect_buddy/registration/ui/registration_list.dart';
 import 'package:connect_buddy/splash_screen/ui/splash_screen.dart';
 import 'package:flutter/material.dart';
@@ -44,6 +48,17 @@ final GoRouter route = GoRouter(
     GoRoute(
       path: '/registrationList',
       builder: (context, state) => RegistrationList(),
+    ),
+
+    GoRoute(path: '/noticeList', builder: (context, state) => NoticeList()),
+    GoRoute(path: '/noticeDetail', builder: (context, state) => NoticeDetail()),
+    GoRoute(
+      path: '/inviteViaEmail',
+      builder: (context, state) => InviteViaEmail(),
+    ),
+    GoRoute(
+      path: '/newOpportunity',
+      builder: (context, state) => NewOpportunity(),
     ),
   ],
 

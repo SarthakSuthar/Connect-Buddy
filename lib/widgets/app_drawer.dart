@@ -30,15 +30,30 @@ class AppDrawer extends StatelessWidget {
                 Text("Ms.Monali Patel", style: AppTheme.mediumBold),
                 const Divider(),
                 const SizedBox(height: 20),
-                const Text("Notice", style: AppTheme.mediumRegular),
+                GestureDetector(
+                  onTap: () => context.push('/noticeList'),
+                  child: const Text("Notice", style: AppTheme.mediumRegular),
+                ),
                 const SizedBox(height: 10),
                 const Text("Achievements", style: AppTheme.mediumRegular),
                 const SizedBox(height: 10),
-                const Text("New opportunities", style: AppTheme.mediumRegular),
+                GestureDetector(
+                  onTap: () => context.push('/newOpportunity'),
+                  child: const Text(
+                    "New opportunities",
+                    style: AppTheme.mediumRegular,
+                  ),
+                ),
                 const SizedBox(height: 10),
                 const Text("Payments", style: AppTheme.mediumRegular),
                 const SizedBox(height: 10),
-                const Text("Invite via Email", style: AppTheme.mediumRegular),
+                GestureDetector(
+                  onTap: () => context.push('/inviteViaEmail'),
+                  child: const Text(
+                    "Invite via Email",
+                    style: AppTheme.mediumRegular,
+                  ),
+                ),
                 const Spacer(),
                 GestureDetector(
                   onTap: () {
