@@ -57,16 +57,20 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                   onTap: () {
                     Scaffold.of(context).openEndDrawer();
                   },
-                  child: Icon(
-                    Icons.menu,
-                    color: isPrimaryColor
-                        ? Colors.white
-                        : AppColors.primaryColor,
-                  ),
+                  child: isPrimaryColor
+                      ? Image.asset(
+                          "assets/images/menu_icon_white.png",
+                          scale: 1.5,
+                        )
+                      : Image.asset("assets/images/menu_icon.png", scale: 1.5),
                 ),
               )
             : const SizedBox(),
       ],
+      shadowColor: Colors.grey.withAlpha(150),
+      surfaceTintColor: Colors.transparent,
+      elevation: 2,
+      // shadowColor: Colors.grey.withOpacity(0.5),
     );
   }
 

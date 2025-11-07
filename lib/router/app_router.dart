@@ -1,3 +1,4 @@
+import 'package:connect_buddy/dashboard/ui/dashboard.dart';
 import 'package:connect_buddy/forgot_pass/ui/enter_otp.dart';
 import 'package:connect_buddy/forgot_pass/ui/forgot_password.dart';
 import 'package:connect_buddy/forgot_pass/ui/reset_password.dart';
@@ -19,6 +20,7 @@ final GoRouter route = GoRouter(
         return const SplashScreen();
       },
     ),
+    GoRoute(path: '/dashboard', builder: (context, state) => Dashboard()),
     GoRoute(path: '/home', builder: (context, state) => HomeScreen()),
     GoRoute(
       path: '/login',

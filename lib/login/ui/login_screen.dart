@@ -86,7 +86,8 @@ class _LoginScreenState extends State<LoginScreen> {
             BlocListener<LoginBloc, LoginState>(
               listener: (context, state) {
                 if (state is LoginSuccess) {
-                  context.push("/home");
+                  // context.push("/home");
+                  context.push("/dashboard");
                   appSnackBar(
                     context,
                     message: "Login successful",
@@ -146,7 +147,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 BlocListener<LoginBloc, LoginState>(
                   listener: (context, state) {
                     if (state is LoginSuccess) {
-                      context.push("/home");
+                      context.push("/dashboard");
                       appSnackBar(
                         context,
                         message: "Login successful",

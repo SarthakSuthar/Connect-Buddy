@@ -9,21 +9,21 @@ Widget homeWidget(
   required String name,
 }) {
   return ClipRRect(
-    borderRadius: BorderRadius.circular(10),
+    borderRadius: BorderRadius.circular(30),
     child: Container(
       height: MediaQuery.of(context).size.height * 0.25,
       width: MediaQuery.of(context).size.width * 0.45,
       clipBehavior: Clip.none,
       decoration: BoxDecoration(
         color: isSchool ? Color(0xFFE3F0FF) : Color(0xFFE6FFE3),
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(30),
       ),
       child: Stack(
         clipBehavior: Clip.hardEdge,
         children: [
           Positioned(
-            left: -20,
-            top: -20,
+            left: -25,
+            top: -25,
             child: circleContainer(text: noOfAlumini, isSchool: isSchool),
           ),
           Positioned(
@@ -36,8 +36,8 @@ Widget homeWidget(
             ),
           ),
           Positioned(
-            left: 20,
-            bottom: 20,
+            left: 10,
+            bottom: 30,
             child: Text(
               "Proud Alumni \nfrom \n$name",
               style: AppTheme.smallBold.copyWith(
@@ -72,7 +72,7 @@ Widget circleContainer({
     child: Text(
       text,
       style: TextStyle(
-        fontSize: 50,
+        fontSize: 40,
         color: Colors.white,
         fontWeight: FontWeight.bold,
         fontFamily: 'Jost',
@@ -88,14 +88,15 @@ Widget newsWidget(BuildContext context) {
       height: MediaQuery.of(context).size.height * 0.4,
 
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(30),
         border: Border.all(color: Colors.grey),
       ),
-      child: ListView.builder(
+      child: ListView.separated(
         itemCount: 3,
         itemBuilder: (context, index) {
           return newsListWidget();
         },
+        separatorBuilder: (context, index) => Divider(color: Colors.grey),
       ),
     ),
   );
@@ -118,7 +119,7 @@ Widget newsListWidget() {
             style: AppTheme.smallRegular,
           ),
           SizedBox(height: 10),
-          Divider(),
+          // Divider(),
         ],
       ),
     ),

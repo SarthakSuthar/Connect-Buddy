@@ -11,6 +11,9 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        shadowColor: Colors.grey.withAlpha(150),
+        surfaceTintColor: Colors.transparent,
+        elevation: 2,
         // leading: const SizedBox(),
         automaticallyImplyLeading: false,
         title: Row(
