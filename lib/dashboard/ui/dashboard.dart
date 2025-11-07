@@ -1,3 +1,4 @@
+import 'package:connect_buddy/alumni/ui/alumni_list.dart';
 import 'package:connect_buddy/home/ui/home_screen.dart';
 import 'package:connect_buddy/jobs/ui/job_dashboard.dart';
 import 'package:connect_buddy/profile/ui/profile_dashboard.dart';
@@ -18,7 +19,7 @@ class _DashboardState extends State<Dashboard> {
   static const List<Widget> _widgetOptions = <Widget>[
     // Text('Home', style: AppTheme.mediumBold),
     HomeScreen(),
-    Text('Alumni List', style: AppTheme.mediumBold),
+    AlumniList(),
     JobDashboard(),
     ProfileDashboard(),
   ];

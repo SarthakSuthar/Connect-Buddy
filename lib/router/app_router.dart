@@ -1,11 +1,14 @@
+import 'package:connect_buddy/alumni/ui/alumni_list.dart';
 import 'package:connect_buddy/dashboard/ui/dashboard.dart';
 import 'package:connect_buddy/forgot_pass/ui/enter_otp.dart';
 import 'package:connect_buddy/forgot_pass/ui/forgot_password.dart';
 import 'package:connect_buddy/forgot_pass/ui/reset_password.dart';
 import 'package:connect_buddy/home/ui/home_screen.dart';
+import 'package:connect_buddy/invite_via_mail/bloc/invite_via_email_bloc.dart';
 import 'package:connect_buddy/invite_via_mail/invite_via_email.dart';
 import 'package:connect_buddy/login/bloc/login_bloc.dart';
 import 'package:connect_buddy/login/ui/login_screen.dart';
+import 'package:connect_buddy/new_opportunity/bloc/new_opportunity_bloc.dart';
 import 'package:connect_buddy/new_opportunity/new_opportunity.dart';
 import 'package:connect_buddy/notice/bloc/notice_bloc.dart';
 import 'package:connect_buddy/notice/ui/notice_detail.dart';
@@ -71,12 +74,24 @@ final GoRouter route = GoRouter(
 
     GoRoute(
       path: '/inviteViaEmail',
-      builder: (context, state) => InviteViaEmail(),
+      builder: (context, state) => BlocProvider(
+        create: (context) => InviteViaEmailBloc(),
+        child: InviteViaEmail(),
+      ),
     ),
     GoRoute(
       path: '/newOpportunity',
-      builder: (context, state) => NewOpportunity(),
+      builder: (context, state) {
+        return BlocProvider(
+          create: (context) =>
+              NewOpportunityBloc()..add(GtNewOpportunityEvent()),
+          child: NewOpportunity(),
+        );
+      },
     ),
+
+    //alumni
+    GoRoute(path: '/alumniList', builder: (context, state) => AlumniList()),
   ],
 
   // redirect: (context, state) {

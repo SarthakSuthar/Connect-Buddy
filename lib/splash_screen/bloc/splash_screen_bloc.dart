@@ -11,13 +11,15 @@ class SplashScreenBloc extends Bloc<SplashScreenEvent, SplashScreenState> {
 
       await Future.delayed(const Duration(seconds: 3));
 
-      bool isLoggedIn = false; //TODO: Replace with actual login check
+      // bool isLoggedIn = false; //TODO: Replace with actual login check
 
-      if (isLoggedIn) {
-        emit(NavigateToHome());
-      } else {
-        emit(NavigateToLogin());
-      }
+      // if (isLoggedIn) {
+      //   emit(NavigateToHome());
+      // } else {
+      //   emit(NavigateToLogin());
+      // }
+
+      emit(NavigateToLogin());
     });
   }
 }
