@@ -7,6 +7,7 @@ import 'package:connect_buddy/invite_via_mail/invite_via_email.dart';
 import 'package:connect_buddy/login/bloc/login_bloc.dart';
 import 'package:connect_buddy/login/ui/login_screen.dart';
 import 'package:connect_buddy/new_opportunity/new_opportunity.dart';
+import 'package:connect_buddy/notice/bloc/notice_bloc.dart';
 import 'package:connect_buddy/notice/ui/notice_detail.dart';
 import 'package:connect_buddy/notice/ui/notice_list.dart';
 import 'package:connect_buddy/registration/ui/registration_list.dart';
@@ -50,8 +51,24 @@ final GoRouter route = GoRouter(
       builder: (context, state) => RegistrationList(),
     ),
 
-    GoRoute(path: '/noticeList', builder: (context, state) => NoticeList()),
-    GoRoute(path: '/noticeDetail', builder: (context, state) => NoticeDetail()),
+    GoRoute(
+      path: '/noticeList',
+      builder: (context, state) => BlocProvider(
+        create: (context) => NoticeBloc()..add(GetNoticeListEvent()),
+        child: NoticeList(),
+      ),
+    ),
+    GoRoute(
+      path: '/noticeDetail/:id',
+      builder: (context, state) {
+        final id = state.pathParameters['id']!;
+        return BlocProvider(
+          create: (context) => NoticeBloc()..add(GetNoticeDetailEvent(id)),
+          child: const NoticeDetail(),
+        );
+      },
+    ),
+
     GoRoute(
       path: '/inviteViaEmail',
       builder: (context, state) => InviteViaEmail(),

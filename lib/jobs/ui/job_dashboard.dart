@@ -11,7 +11,7 @@ class JobDashboard extends StatelessWidget {
     return AppScaffold(
       title: "Jobs",
       isPrimaryColor: false,
-      showBackButton: true,
+      showBackButton: false,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
