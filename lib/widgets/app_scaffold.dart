@@ -8,13 +8,15 @@ class AppScaffold extends StatelessWidget {
   final bool isPrimaryColor;
   final bool isDrawer;
   final Widget body;
+  final bool isAlumniDetail;
 
   const AppScaffold({
     super.key,
     required this.title,
     this.showBackButton = false,
-    this.isPrimaryColor = true,
+    this.isPrimaryColor = false,
     this.isDrawer = true,
+    this.isAlumniDetail = false,
     required this.body,
   });
 
@@ -26,6 +28,7 @@ class AppScaffold extends StatelessWidget {
         showBackButton: showBackButton,
         isPrimaryColor: isPrimaryColor,
         isDrawer: isDrawer,
+        isAlumniDetail: isAlumniDetail,
       ),
       endDrawer: const AppDrawer(),
       drawerScrimColor: Colors.transparent.withOpacity(0.1),

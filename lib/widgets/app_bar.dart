@@ -9,12 +9,14 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     required this.showBackButton,
     required this.isPrimaryColor,
     required this.isDrawer,
+    required this.isAlumniDetail,
   });
 
   final String title;
   final bool showBackButton;
   final bool isPrimaryColor;
   final bool isDrawer;
+  final bool isAlumniDetail;
 
   @override
   Widget build(BuildContext context) {
@@ -72,7 +74,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               )
             : const SizedBox(),
       ],
-      shadowColor: Colors.grey.withAlpha(150),
+      shadowColor: isAlumniDetail ? null : Colors.grey.withAlpha(150),
       surfaceTintColor: Colors.transparent,
       elevation: 2,
       // shadowColor: Colors.grey.withOpacity(0.5),

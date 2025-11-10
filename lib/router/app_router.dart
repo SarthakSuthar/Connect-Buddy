@@ -1,3 +1,4 @@
+import 'package:connect_buddy/alumni/ui/alumni_detail.dart';
 import 'package:connect_buddy/alumni/ui/alumni_list.dart';
 import 'package:connect_buddy/dashboard/ui/dashboard.dart';
 import 'package:connect_buddy/forgot_pass/ui/enter_otp.dart';
@@ -92,6 +93,7 @@ final GoRouter route = GoRouter(
 
     //alumni
     GoRoute(path: '/alumniList', builder: (context, state) => AlumniList()),
+    GoRoute(path: '/alumniDetail', builder: (context, state) => AlumniDetail()),
   ],
 
   // redirect: (context, state) {
