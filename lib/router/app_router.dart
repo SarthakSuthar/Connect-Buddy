@@ -7,6 +7,7 @@ import 'package:connect_buddy/forgot_pass/ui/reset_password.dart';
 import 'package:connect_buddy/home/ui/home_screen.dart';
 import 'package:connect_buddy/invite_via_mail/bloc/invite_via_email_bloc.dart';
 import 'package:connect_buddy/invite_via_mail/invite_via_email.dart';
+import 'package:connect_buddy/jobs/ui/find_job_list.dart';
 import 'package:connect_buddy/login/bloc/login_bloc.dart';
 import 'package:connect_buddy/login/ui/login_screen.dart';
 import 'package:connect_buddy/new_opportunity/bloc/new_opportunity_bloc.dart';
@@ -91,9 +92,12 @@ final GoRouter route = GoRouter(
       },
     ),
 
-    //alumni
+    //MARK: alumni
     GoRoute(path: '/alumniList', builder: (context, state) => AlumniList()),
     GoRoute(path: '/alumniDetail', builder: (context, state) => AlumniDetail()),
+
+    //MARK: job
+    GoRoute(path: '/findJobList', builder: (context, state) => FindJobList()),
   ],
 
   // redirect: (context, state) {

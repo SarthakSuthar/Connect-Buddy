@@ -2,6 +2,7 @@ import 'package:connect_buddy/theme/app_theme.dart';
 import 'package:connect_buddy/utils.dart';
 import 'package:connect_buddy/widgets/app_scaffold.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class JobDashboard extends StatelessWidget {
   const JobDashboard({super.key});
@@ -25,7 +26,10 @@ class JobDashboard extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             jobButton(
-              onTap: () => showlog("Find JOb tapped"),
+              onTap: () {
+                showlog("Find JOb tapped");
+                context.push('/findJobList');
+              },
               text: "Find a Job",
               icon: Icons.search,
               context: context,

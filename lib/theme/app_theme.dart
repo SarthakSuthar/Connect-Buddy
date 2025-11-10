@@ -61,6 +61,7 @@ class AppTheme {
     fontSize: 14,
     fontWeight: FontWeight.w300,
     fontFamily: 'Jost',
+    color: Colors.grey,
   );
 
   static ThemeData theme = ThemeData(
