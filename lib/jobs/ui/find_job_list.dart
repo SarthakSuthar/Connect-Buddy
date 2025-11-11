@@ -1,24 +1,57 @@
-import 'package:connect_buddy/theme/app_theme.dart';
-import 'package:connect_buddy/utils.dart';
-import 'package:connect_buddy/widgets/app_btn.dart';
-import 'package:connect_buddy/widgets/app_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:go_router/go_router.dart';
 
+import 'package:connect_buddy/theme/app_theme.dart';
+import 'package:connect_buddy/utils.dart';
+import 'package:connect_buddy/widgets/app_btn.dart';
+import 'package:connect_buddy/widgets/app_scaffold.dart';
+
+class FindJobListParams {
+  final bool? isAppliedList;
+  final bool? isFindJobList;
+  final bool? isPostJobList;
+  final bool? isPostedByMeList;
+  final bool? isAppliedByMeList;
+
+  FindJobListParams({
+    this.isAppliedList,
+    this.isFindJobList,
+    this.isPostJobList,
+    this.isPostedByMeList,
+    this.isAppliedByMeList,
+  });
+}
+
 class FindJobList extends StatefulWidget {
-  const FindJobList({super.key});
+  final bool? isAppliedList;
+  final bool? isFindJobList;
+  final bool? isPostJobList;
+  final bool? isPostedByMeList;
+  final bool? isAppliedByMeList;
+  const FindJobList({
+    super.key,
+    this.isAppliedList,
+    this.isFindJobList,
+    this.isPostJobList,
+    this.isPostedByMeList,
+    this.isAppliedByMeList,
+  });
 
   @override
   State<FindJobList> createState() => _FindJobListState();
 }
 
 class _FindJobListState extends State<FindJobList> {
-  bool isPostJob = true;
+  // bool isPostJob = true;
   @override
   Widget build(BuildContext context) {
     return AppScaffold(
-      title: 'Jobs',
+      title: widget.isAppliedByMeList!
+          ? 'Jobs Applied'
+          : widget.isPostedByMeList!
+          ? 'Jobs Posted'
+          : 'Jobs',
       showBackButton: true,
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -26,23 +59,28 @@ class _FindJobListState extends State<FindJobList> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             //search box
-            if (isPostJob == true)
-              Row(
-                children: [
-                  Expanded(child: searchBox()),
-                  const SizedBox(width: 10),
-                  AppButton(
-                    text: "ADD",
-                    onTap: () => showlog("Add button pressed"),
-                  ),
-                ],
-              )
-            else
-              searchBox(),
+            if (widget.isAppliedByMeList != true &&
+                widget.isPostedByMeList != true)
+              if (widget.isPostJobList == true)
+                Row(
+                  children: [
+                    Expanded(child: searchBox()),
+                    const SizedBox(width: 10),
+                    AppButton(
+                      text: "ADD",
+                      onTap: () => context.push('/addJob'),
+                    ),
+                  ],
+                )
+              else
+                searchBox(),
 
             const SizedBox(height: 10),
+
             //search result text
-            const Text("4 Results found"),
+            if (widget.isAppliedByMeList != true &&
+                widget.isPostedByMeList != true)
+              const Text("4 Results found"),
 
             const SizedBox(height: 20),
 
@@ -56,7 +94,7 @@ class _FindJobListState extends State<FindJobList> {
                     //  isPostJob
                     //     ?
                     Slidable(
-                      enabled: isPostJob,
+                      enabled: widget.isPostJobList ?? false,
                       endActionPane: ActionPane(
                         extentRatio: 0.1,
                         motion: const ScrollMotion(),
@@ -82,7 +120,13 @@ class _FindJobListState extends State<FindJobList> {
                         ],
                       ),
 
-                      child: jobListItem(),
+                      child: jobListItem(
+                        isApplied: widget.isAppliedList ?? false,
+                        isFindJob: widget.isFindJobList ?? false,
+                        isPostJob: widget.isPostJobList ?? false,
+                        isAppliedByMeList: widget.isAppliedByMeList ?? false,
+                        isPostedByMeList: widget.isPostedByMeList ?? false,
+                      ),
                     ),
                 // : jobListItem(),
               ),
@@ -97,7 +141,7 @@ class _FindJobListState extends State<FindJobList> {
     return InkWell(
       onTap: () {
         showlog("job search box taped");
-        searchBottomsheet(context, isPostedJob: true);
+        searchBottomsheet(context, isPostedJob: widget.isPostJobList ?? false);
       },
       child: Container(
         // width: MediaQuery.of(context).size.width,
@@ -142,7 +186,6 @@ class _FindJobListState extends State<FindJobList> {
               children: [
                 AppBar(
                   automaticallyImplyLeading: true,
-                  // leading: Icon(Icons.arrow_back_ios_new_rounded),
                   title: Text("Job Search"),
                   centerTitle: true,
                 ),
@@ -253,9 +296,12 @@ class _FindJobListState extends State<FindJobList> {
     bool isFindJob = false,
     bool isPostJob = false,
     bool isApplied = false,
+    bool isAppliedByMeList = false,
+    bool isPostedByMeList = false,
   }) {
     return InkWell(
       onTap: () {
+        context.push('/jobDetail');
         showlog("job list item pressed");
       },
       child: Container(
@@ -291,7 +337,23 @@ class _FindJobListState extends State<FindJobList> {
                   const SizedBox(height: 10),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [postTimeChip(), jobStatus(isFindJob: true)],
+                    children: [
+                      if (isAppliedByMeList)
+                        Text(
+                          "Applied 5m ago",
+                          style: AppTheme.smallBold.copyWith(
+                            color: Colors.grey,
+                          ),
+                        )
+                      else
+                        postTimeChip(),
+                      jobStatus(
+                        isFindJob: isFindJob,
+                        isApplied: isApplied,
+                        isPostJob: isPostJob,
+                        isPostedByMeList: isPostedByMeList,
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -320,6 +382,7 @@ class _FindJobListState extends State<FindJobList> {
     bool isFindJob = false,
     bool isPostJob = false,
     bool isApplied = false,
+    bool isPostedByMeList = false,
   }) {
     if (isFindJob) {
       return Row(
@@ -344,9 +407,10 @@ class _FindJobListState extends State<FindJobList> {
       );
     } else if (isApplied) {
       return Text("Applied 2m ago");
-    } else if (isPostJob) {
+    } else if (isPostJob || isPostedByMeList) {
       return GestureDetector(
         onTap: () {
+          context.push('/interestedCandidatesList');
           showlog("view candidate pressed");
         },
         child: Text("View Candidetes"),

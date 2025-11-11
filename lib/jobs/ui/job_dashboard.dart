@@ -1,3 +1,4 @@
+import 'package:connect_buddy/jobs/ui/find_job_list.dart';
 import 'package:connect_buddy/theme/app_theme.dart';
 import 'package:connect_buddy/utils.dart';
 import 'package:connect_buddy/widgets/app_scaffold.dart';
@@ -19,7 +20,18 @@ class JobDashboard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             jobButton(
-              onTap: () => showlog("Post JOb tapped"),
+              onTap: () {
+                context.push(
+                  '/findJobList',
+                  extra: FindJobListParams(
+                    isPostJobList: true,
+                    isFindJobList: false,
+                    isAppliedList: false,
+                    isAppliedByMeList: false,
+                    isPostedByMeList: false,
+                  ),
+                );
+              },
               text: "Post a Job",
               icon: Icons.work,
               context: context,
@@ -28,7 +40,16 @@ class JobDashboard extends StatelessWidget {
             jobButton(
               onTap: () {
                 showlog("Find JOb tapped");
-                context.push('/findJobList');
+                context.push(
+                  '/findJobList',
+                  extra: FindJobListParams(
+                    isPostJobList: false,
+                    isFindJobList: true,
+                    isAppliedList: false,
+                    isAppliedByMeList: false,
+                    isPostedByMeList: false,
+                  ),
+                );
               },
               text: "Find a Job",
               icon: Icons.search,

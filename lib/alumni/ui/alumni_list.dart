@@ -103,6 +103,7 @@ class _AlumniListState extends State<AlumniList> {
               isDense: true,
               value: selectedYear,
               hint: Text("Select year"),
+              underline: const SizedBox(),
               items: yearList.map((int year) {
                 return DropdownMenuItem<int>(
                   value: year.toInt(),

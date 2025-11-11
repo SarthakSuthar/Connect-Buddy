@@ -9,7 +9,10 @@ import 'package:connect_buddy/forgot_pass/ui/reset_password.dart';
 import 'package:connect_buddy/home/ui/home_screen.dart';
 import 'package:connect_buddy/invite_via_mail/bloc/invite_via_email_bloc.dart';
 import 'package:connect_buddy/invite_via_mail/invite_via_email.dart';
+import 'package:connect_buddy/jobs/ui/add_job.dart';
 import 'package:connect_buddy/jobs/ui/find_job_list.dart';
+import 'package:connect_buddy/jobs/ui/interested_candidates_list.dart';
+import 'package:connect_buddy/jobs/ui/job_detail.dart';
 import 'package:connect_buddy/login/bloc/login_bloc.dart';
 import 'package:connect_buddy/login/ui/login_screen.dart';
 import 'package:connect_buddy/new_opportunity/bloc/new_opportunity_bloc.dart';
@@ -17,6 +20,7 @@ import 'package:connect_buddy/new_opportunity/new_opportunity.dart';
 import 'package:connect_buddy/notice/bloc/notice_bloc.dart';
 import 'package:connect_buddy/notice/ui/notice_detail.dart';
 import 'package:connect_buddy/notice/ui/notice_list.dart';
+import 'package:connect_buddy/profile/ui/my_profile.dart';
 import 'package:connect_buddy/registration/ui/registration_list.dart';
 import 'package:connect_buddy/splash_screen/ui/splash_screen.dart';
 import 'package:flutter/material.dart';
@@ -102,19 +106,36 @@ final GoRouter route = GoRouter(
       },
     ),
 
+    GoRoute(path: '/myProfile', builder: (context, state) => MyProfile()),
+
     //MARK: alumni
     GoRoute(path: '/alumniList', builder: (context, state) => AlumniList()),
     GoRoute(path: '/alumniDetail', builder: (context, state) => AlumniDetail()),
 
     //MARK: job
-    GoRoute(path: '/findJobList', builder: (context, state) => FindJobList()),
+    GoRoute(path: '/addJob', builder: (context, state) => AddJob()),
+
+    // GoRoute(path: '/findJobList', builder: (context, state) => FindJobList()),
+    GoRoute(
+      path: '/interestedCandidatesList',
+      builder: (context, state) => InterestedCandidatesList(),
+    ),
+
+    GoRoute(path: '/jobDetail', builder: (context, state) => JobDetail()),
+
+    GoRoute(
+      path: '/findJobList',
+      builder: (context, state) {
+        final params = state.extra as FindJobListParams;
+
+        return FindJobList(
+          isAppliedList: params.isAppliedList,
+          isFindJobList: params.isFindJobList,
+          isPostJobList: params.isPostJobList,
+          isPostedByMeList: params.isPostedByMeList,
+          isAppliedByMeList: params.isAppliedByMeList,
+        );
+      },
+    ),
   ],
-
-  // redirect: (context, state) {
-  //   final splashState = context.read<SplashScreenBloc>().state;
-
-  //   if (splashState is NavigateToLogin) return '/login';
-  //   if (splashState is NavigateToHome) return '/home';
-  //   return null; // stay on splash
-  // },
 );

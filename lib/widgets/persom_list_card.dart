@@ -21,7 +21,7 @@ class PersomListCard extends StatelessWidget {
               borderRadius: BorderRadius.circular(60),
               child: Stack(
                 children: [
-                  Image.asset("assets/images/alumni_profile.png", scale: 2.8),
+                  Image.asset("assets/images/alumni_profile.png", scale: 3),
 
                   if (isOpenToWork == true)
                     Positioned(

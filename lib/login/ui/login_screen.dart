@@ -87,7 +87,7 @@ class _LoginScreenState extends State<LoginScreen> {
               listener: (context, state) {
                 if (state is LoginSuccess) {
                   // context.push("/home");
-                  context.push("/dashboard");
+                  context.go("/dashboard");
                   appSnackBar(
                     context,
                     message: "Login successful",

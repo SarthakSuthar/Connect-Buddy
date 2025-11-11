@@ -15,7 +15,7 @@ class AppInput extends StatelessWidget {
     required this.controller,
     required this.focusNode,
     this.obscureText = false,
-    required this.enabled,
+    this.enabled = true,
   });
 
   @override

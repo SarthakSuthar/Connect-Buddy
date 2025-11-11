@@ -1,7 +1,9 @@
+import 'package:connect_buddy/jobs/ui/find_job_list.dart';
 import 'package:connect_buddy/theme/app_theme.dart';
 import 'package:connect_buddy/utils.dart';
 import 'package:connect_buddy/widgets/app_scaffold.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class ProfileDashboard extends StatelessWidget {
   const ProfileDashboard({super.key});
@@ -37,6 +39,7 @@ class ProfileDashboard extends StatelessWidget {
                   title: "My Profile",
                   icon: Icons.person,
                   onTap: () {
+                    context.push('/myProfile');
                     showlog("My Profile taped");
                   },
                 ),
@@ -47,7 +50,17 @@ class ProfileDashboard extends StatelessWidget {
                   title: "Job Posted by Me",
                   icon: Icons.note_add,
                   onTap: () {
-                    showlog("Job Posted by Me taped");
+                    context.push(
+                      '/findJobList',
+                      extra: FindJobListParams(
+                        isPostJobList: false,
+                        isFindJobList: false,
+                        isAppliedList: false,
+                        isAppliedByMeList: false,
+                        isPostedByMeList: true,
+                      ),
+                    );
+                    showlog("Job Posted by Me tapped");
                   },
                 ),
 
@@ -57,6 +70,16 @@ class ProfileDashboard extends StatelessWidget {
                   title: "Job Applied by Me",
                   icon: Icons.person,
                   onTap: () {
+                    context.push(
+                      '/findJobList',
+                      extra: FindJobListParams(
+                        isPostJobList: false,
+                        isFindJobList: false,
+                        isAppliedList: false,
+                        isAppliedByMeList: true,
+                        isPostedByMeList: false,
+                      ),
+                    );
                     showlog("Job Applied by Me taped");
                   },
                 ),
