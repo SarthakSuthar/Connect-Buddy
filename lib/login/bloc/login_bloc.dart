@@ -9,12 +9,9 @@ part 'login_state.dart';
 //TODO: have to implement real logic
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   LoginBloc() : super(LoginInitial()) {
-    on<LoginEvent>(onAppStarted);
     on<LoginBtnPressed>(onLoginBtnPressed);
     on<GoogleBtnPressed>(onGoogleBtnPressed);
   }
-
-  Future<void> onAppStarted(LoginEvent event, Emitter<LoginState> emit) async {}
 
   Future<void> onLoginBtnPressed(
     LoginBtnPressed event,

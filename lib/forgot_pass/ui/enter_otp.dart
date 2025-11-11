@@ -1,8 +1,11 @@
+import 'package:connect_buddy/forgot_pass/BLoC/otp_bloc/otp_bloc.dart';
 import 'package:connect_buddy/theme/app_theme.dart';
 import 'package:connect_buddy/utils.dart';
 import 'package:connect_buddy/widgets/app_btn.dart';
 import 'package:connect_buddy/widgets/app_scaffold.dart';
+import 'package:connect_buddy/widgets/app_snackbar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 class EnterOtp extends StatefulWidget {
@@ -11,6 +14,8 @@ class EnterOtp extends StatefulWidget {
   @override
   State<EnterOtp> createState() => _EnterOtpState();
 }
+
+//TODO: Working here -- implementing BLoC
 
 class _EnterOtpState extends State<EnterOtp> {
   final List<TextEditingController> controllers = List.generate(
@@ -63,27 +68,53 @@ class _EnterOtpState extends State<EnterOtp> {
 
           SizedBox(height: 20),
 
-          Row(
-            children: [
-              const SizedBox(width: 30),
-              Expanded(
-                child: AppButton(
-                  text: "Continue",
-                  onTap: () {
-                    context.go('/resetPassword');
-                    showlog("Continue button pressed");
-                  },
-                ),
-              ),
-              const SizedBox(width: 30),
-            ],
+          BlocListener<OtpBloc, OtpState>(
+            listener: (context, state) {
+              if (state is OtpFailed) {
+                appSnackBar(context, message: "Wrong OTP!", isError: true);
+              }
+
+              if (state is OtpSuccess) {
+                context.push('/resetPassword');
+                appSnackBar(context, message: "OTP verified!", isError: false);
+              }
+            },
+            child: BlocBuilder<OtpBloc, OtpState>(
+              builder: (context, state) {
+                if (state is OtpLoading) {
+                  return const CircularProgressIndicator();
+                }
+                return Row(
+                  children: [
+                    const SizedBox(width: 30),
+                    Expanded(
+                      child: AppButton(
+                        text: "Continue",
+                        onTap: () {
+                          // context.go('/resetPassword');
+                          context.read<OtpBloc>().add(OtpEntered(otp: ""));
+                          showlog("Continue button pressed");
+                        },
+                      ),
+                    ),
+                    const SizedBox(width: 30),
+                  ],
+                );
+              },
+            ),
           ),
 
           SizedBox(height: 10),
 
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [Text("Resend OTP"), Text("Change Number")],
+            children: [
+              Text("Resend OTP"),
+              GestureDetector(
+                onTap: () => context.pop(),
+                child: Text("Change Number"),
+              ),
+            ],
           ),
         ],
       ),
@@ -104,7 +135,7 @@ class _EnterOtpState extends State<EnterOtp> {
         border: Border.all(
           color: focusNode.hasFocus
               ? AppColors.primaryColor
-              : AppColors.primaryColor.withOpacity(0.4),
+              : AppColors.primaryColor.withValues(alpha: 0.4),
           width: 1.5,
         ),
       ),
