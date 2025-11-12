@@ -1,6 +1,7 @@
 import 'package:connect_buddy/theme/app_theme.dart';
 import 'package:connect_buddy/utils.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class RegistrationList extends StatelessWidget {
   const RegistrationList({super.key});
@@ -25,6 +26,7 @@ class RegistrationList extends StatelessWidget {
               children: [
                 InkWell(
                   onTap: () {
+                    context.push('/registerAlumni');
                     showlog("Register as Alumini button pressed");
                   },
                   child: Container(

@@ -1,3 +1,5 @@
+import 'package:connect_buddy/achievements/ui/achi_details.dart';
+import 'package:connect_buddy/achievements/ui/achi_list.dart';
 import 'package:connect_buddy/alumni/ui/alumni_detail.dart';
 import 'package:connect_buddy/alumni/ui/alumni_list.dart';
 import 'package:connect_buddy/dashboard/ui/dashboard.dart';
@@ -6,6 +8,7 @@ import 'package:connect_buddy/forgot_pass/BLoC/otp_bloc/otp_bloc.dart'
 import 'package:connect_buddy/forgot_pass/ui/enter_otp.dart';
 import 'package:connect_buddy/forgot_pass/ui/forgot_password.dart';
 import 'package:connect_buddy/forgot_pass/ui/reset_password.dart';
+import 'package:connect_buddy/forgot_pass/ui/success_pass_change.dart';
 import 'package:connect_buddy/home/ui/home_screen.dart';
 import 'package:connect_buddy/invite_via_mail/bloc/invite_via_email_bloc.dart';
 import 'package:connect_buddy/invite_via_mail/invite_via_email.dart';
@@ -21,7 +24,9 @@ import 'package:connect_buddy/notice/bloc/notice_bloc.dart';
 import 'package:connect_buddy/notice/ui/notice_detail.dart';
 import 'package:connect_buddy/notice/ui/notice_list.dart';
 import 'package:connect_buddy/profile/ui/my_profile.dart';
+import 'package:connect_buddy/registration/ui/register_alumni.dart';
 import 'package:connect_buddy/registration/ui/registration_list.dart';
+import 'package:connect_buddy/registration/ui/registration_success.dart';
 import 'package:connect_buddy/splash_screen/ui/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -47,7 +52,6 @@ final GoRouter route = GoRouter(
         );
       },
     ),
-    GoRoute(path: '/signup', builder: (context, state) => Container()),
     GoRoute(
       path: '/forgotPassword',
       builder: (context, state) => const ForgotPassword(),
@@ -66,8 +70,22 @@ final GoRouter route = GoRouter(
       builder: (context, state) => ResetPassword(),
     ),
     GoRoute(
+      path: '/passChangeSuccess',
+      builder: (context, state) => PasswordChangeSuccessScreen(),
+    ),
+
+    //MARK: registration
+    GoRoute(
       path: '/registrationList',
       builder: (context, state) => RegistrationList(),
+    ),
+    GoRoute(
+      path: '/registerAlumni',
+      builder: (context, state) => RegisterAlumni(),
+    ),
+    GoRoute(
+      path: '/registrationSuccess',
+      builder: (context, state) => RegistrationSuccessScreen(),
     ),
 
     GoRoute(
@@ -86,6 +104,12 @@ final GoRouter route = GoRouter(
           child: const NoticeDetail(),
         );
       },
+    ),
+
+    GoRoute(path: '/achiList', builder: (context, state) => AchievementsList()),
+    GoRoute(
+      path: '/achiDetails',
+      builder: (context, state) => AchievementDetails(),
     ),
 
     GoRoute(
@@ -121,7 +145,13 @@ final GoRouter route = GoRouter(
       builder: (context, state) => InterestedCandidatesList(),
     ),
 
-    GoRoute(path: '/jobDetail', builder: (context, state) => JobDetail()),
+    GoRoute(
+      path: '/jobDetail',
+      builder: (context, state) {
+        final params = state.extra as JobDetailParams;
+        return JobDetail(isFindJob: params.isFindJob);
+      },
+    ),
 
     GoRoute(
       path: '/findJobList',

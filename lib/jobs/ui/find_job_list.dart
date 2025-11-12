@@ -1,3 +1,4 @@
+import 'package:connect_buddy/jobs/ui/job_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:go_router/go_router.dart';
@@ -301,7 +302,11 @@ class _FindJobListState extends State<FindJobList> {
   }) {
     return InkWell(
       onTap: () {
-        context.push('/jobDetail');
+        showlog("isFindJob ---> $isFindJob");
+        context.push(
+          '/jobDetail',
+          extra: JobDetailParams(isFindJob: isFindJob),
+        );
         showlog("job list item pressed");
       },
       child: Container(
@@ -313,7 +318,7 @@ class _FindJobListState extends State<FindJobList> {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image.asset('assets/images/company_logo.png'),
+            Image.asset('assets/images/company_logo.png', scale: 2.5),
             const SizedBox(width: 20),
             Expanded(
               child: Column(

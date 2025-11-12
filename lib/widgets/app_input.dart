@@ -8,6 +8,7 @@ class AppInput extends StatelessWidget {
   final FocusNode focusNode;
   final bool obscureText;
   final bool enabled;
+  final int minLine;
   const AppInput({
     super.key,
     required this.title,
@@ -16,6 +17,7 @@ class AppInput extends StatelessWidget {
     required this.focusNode,
     this.obscureText = false,
     this.enabled = true,
+    this.minLine = 1,
   });
 
   @override
@@ -25,17 +27,20 @@ class AppInput extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            children: [
-              const SizedBox(width: 20),
-              Text(title, style: AppTheme.smallBold),
-            ],
-          ),
+          if (title.isNotEmpty || title != "")
+            Row(
+              children: [
+                const SizedBox(width: 20),
+                Text(title, style: AppTheme.smallBold),
+              ],
+            ),
           TextFormField(
             controller: controller,
             focusNode: focusNode,
             obscureText: obscureText,
             enabled: enabled,
+            minLines: obscureText ? 1 : minLine,
+            maxLines: obscureText ? 1 : null,
             style: const TextStyle(
               color: Colors.black,
             ), // ensure text color is black

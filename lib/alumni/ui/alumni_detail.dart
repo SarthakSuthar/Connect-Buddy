@@ -13,7 +13,7 @@ class AlumniDetail extends StatelessWidget {
       title: '',
       showBackButton: true,
       isPrimaryColor: true,
-      isAlumniDetail: true,
+      // isAlumniDetail: true,
       body: Column(
         children: [
           profilePicContainer(context),

@@ -3,6 +3,7 @@ import 'package:connect_buddy/utils.dart';
 import 'package:connect_buddy/widgets/app_btn.dart';
 import 'package:connect_buddy/widgets/app_input.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class ResetPassword extends StatelessWidget {
   const ResetPassword({super.key});
@@ -45,6 +46,7 @@ class ResetPassword extends StatelessWidget {
             AppButton(
               text: "Continue",
               onTap: () {
+                context.go('/passChangeSuccess');
                 showlog("Continue button pressed");
               },
             ),

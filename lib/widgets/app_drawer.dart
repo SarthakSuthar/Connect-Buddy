@@ -35,7 +35,13 @@ class AppDrawer extends StatelessWidget {
                   child: const Text("Notice", style: AppTheme.mediumRegular),
                 ),
                 const SizedBox(height: 10),
-                const Text("Achievements", style: AppTheme.mediumRegular),
+                GestureDetector(
+                  onTap: () => context.push('/achiList'),
+                  child: const Text(
+                    "Achievements",
+                    style: AppTheme.mediumRegular,
+                  ),
+                ),
                 const SizedBox(height: 10),
                 GestureDetector(
                   onTap: () => context.push('/newOpportunity'),

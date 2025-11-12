@@ -7,6 +7,7 @@ class AppDropdown extends StatefulWidget {
   final List<String> itemList;
   final String? initialValue;
   final ValueChanged<String>? onChanged;
+  final String? title;
 
   const AppDropdown({
     super.key,
@@ -14,6 +15,7 @@ class AppDropdown extends StatefulWidget {
     required this.itemList,
     this.initialValue,
     this.onChanged,
+    this.title,
   });
 
   @override
@@ -31,30 +33,53 @@ class _AppDropdownState extends State<AppDropdown> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        border: Border.all(color: AppColors.dividerColor),
-        borderRadius: BorderRadius.circular(30),
-      ),
-      padding: EdgeInsets.all(8),
-      child: DropdownButton<String>(
-        isDense: true,
-        isExpanded: true,
-        value: selectedValue,
-        hint: Text(widget.hint),
-        underline: const SizedBox(),
-        items: widget.itemList.map<DropdownMenuItem<String>>((String value) {
-          return DropdownMenuItem<String>(value: value, child: Text(value));
-        }).toList(),
-        onChanged: (String? newValue) {
-          setState(() {
-            selectedValue = newValue;
-          });
-          if (newValue != null && widget.onChanged != null) {
-            widget.onChanged!(newValue);
-          }
-          showlog("selected value : $newValue");
-        },
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          if (widget.title != null && widget.title!.isNotEmpty)
+            Padding(
+              padding: const EdgeInsets.only(left: 20.0),
+              child: Text(widget.title ?? "", style: AppTheme.smallBold),
+            )
+          else
+            const SizedBox(height: 10),
+          Container(
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.grey),
+              borderRadius: BorderRadius.circular(30),
+            ),
+            padding: EdgeInsets.all(12),
+            child: DropdownButton<String>(
+              isDense: true,
+              isExpanded: true,
+              value: selectedValue,
+              hint: Text(
+                widget.hint,
+                style: AppTheme.smallBold.copyWith(color: Colors.grey),
+              ),
+              underline: const SizedBox(),
+              items: widget.itemList.map<DropdownMenuItem<String>>((
+                String value,
+              ) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: Text(value),
+                );
+              }).toList(),
+              onChanged: (String? newValue) {
+                setState(() {
+                  selectedValue = newValue;
+                });
+                if (newValue != null && widget.onChanged != null) {
+                  widget.onChanged!(newValue);
+                }
+                showlog("selected value : $newValue");
+              },
+            ),
+          ),
+        ],
       ),
     );
   }

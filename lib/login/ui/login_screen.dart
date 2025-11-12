@@ -126,12 +126,12 @@ class _LoginScreenState extends State<LoginScreen> {
 
             Row(
               children: [
-                const Expanded(child: Divider()),
+                const Expanded(child: Divider(color: AppColors.dividerColor)),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10.0),
                   child: Text("OR"),
                 ),
-                const Expanded(child: Divider()),
+                const Expanded(child: Divider(color: AppColors.dividerColor)),
               ],
             ),
 
