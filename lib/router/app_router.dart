@@ -3,8 +3,7 @@ import 'package:connect_buddy/achievements/ui/achi_list.dart';
 import 'package:connect_buddy/alumni/ui/alumni_detail.dart';
 import 'package:connect_buddy/alumni/ui/alumni_list.dart';
 import 'package:connect_buddy/dashboard/ui/dashboard.dart';
-import 'package:connect_buddy/forgot_pass/BLoC/otp_bloc/otp_bloc.dart'
-    as otp_bloc;
+import 'package:connect_buddy/forgot_pass/BLoC/bloc/forgot_password_bloc.dart';
 import 'package:connect_buddy/forgot_pass/ui/enter_otp.dart';
 import 'package:connect_buddy/forgot_pass/ui/forgot_password.dart';
 import 'package:connect_buddy/forgot_pass/ui/reset_password.dart';
@@ -59,8 +58,8 @@ final GoRouter route = GoRouter(
     GoRoute(
       path: '/enterOtp',
       builder: (context, state) {
-        return BlocProvider<otp_bloc.OtpBloc>(
-          create: (context) => otp_bloc.OtpBloc(),
+        return BlocProvider<ForgotPasswordBloc>(
+          create: (context) => ForgotPasswordBloc(),
           child: const EnterOtp(),
         );
       },

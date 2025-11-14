@@ -37,7 +37,7 @@ Widget homeWidget(
           ),
           Positioned(
             left: 10,
-            bottom: 30,
+            bottom: 20,
             child: Text(
               "Proud Alumni \nfrom \n$name",
               style: AppTheme.smallBold.copyWith(

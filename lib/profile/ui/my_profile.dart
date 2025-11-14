@@ -394,82 +394,93 @@ class _MyProfileState extends State<MyProfile> {
   Future<void> addEducationBottomSheet() {
     return showModalBottomSheet(
       context: context,
+      isScrollControlled: true,
       builder: (BuildContext context) {
-        return SizedBox(
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              children: [
-                AppBar(
-                  title: Text("Add Education"),
-                  centerTitle: true,
-                  automaticallyImplyLeading: true,
+        return DraggableScrollableSheet(
+          expand: false,
+          initialChildSize: 0.9,
+          minChildSize: 0.5,
+          maxChildSize: 0.95,
+          builder: (_, controller) {
+            return Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: SingleChildScrollView(
+                controller: controller,
+                child: Column(
+                  children: [
+                    AppBar(
+                      title: const Text("Add Education"),
+                      centerTitle: true,
+                      automaticallyImplyLeading: false,
+                    ),
+
+                    const Divider(color: AppColors.dividerColor),
+                    const SizedBox(height: 20),
+
+                    AppDropdown(
+                      hint: "Select Degree",
+                      itemList: degreeList,
+                      onChanged: (value) => selectedDegree = value,
+                    ),
+
+                    const SizedBox(height: 20),
+
+                    Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(color: AppColors.dividerColor),
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      padding: const EdgeInsets.all(8),
+                      child: DropdownButton<int>(
+                        isDense: true,
+                        isExpanded: true,
+                        value: selectedYear,
+                        underline: const SizedBox(),
+                        hint: const Text("Select year"),
+                        items: yearList.map((int year) {
+                          return DropdownMenuItem<int>(
+                            value: year,
+                            child: Text(
+                              year.toString(),
+                              style: AppTheme.smallLite,
+                            ),
+                          );
+                        }).toList(),
+                        onChanged: (int? value) {
+                          setState(() {
+                            selectedYear = value;
+                          });
+                        },
+                      ),
+                    ),
+
+                    const SizedBox(height: 20),
+
+                    AppDropdown(
+                      hint: "Select University/Board",
+                      itemList: uniList,
+                      onChanged: (value) => selectedUni = value,
+                    ),
+
+                    const SizedBox(height: 20),
+
+                    AppDropdown(
+                      hint: "Select College/School",
+                      itemList: collegeList,
+                      onChanged: (value) => selectedCollege = value,
+                    ),
+
+                    const SizedBox(height: 30),
+
+                    AppButton(
+                      text: "Add",
+                      onTap: () => showlog("Add button tapped"),
+                    ),
+                  ],
                 ),
-
-                const Divider(color: AppColors.dividerColor),
-
-                const SizedBox(height: 20),
-
-                AppDropdown(
-                  hint: "Select Degree",
-                  itemList: degreeList,
-                  onChanged: (value) => selectedDegree,
-                ),
-
-                const SizedBox(height: 20),
-
-                Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(color: AppColors.dividerColor),
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                  padding: EdgeInsets.all(8),
-                  child: DropdownButton<int>(
-                    isDense: true,
-                    isExpanded: true,
-                    value: selectedYear,
-                    underline: const SizedBox(),
-                    hint: Text("Select year"),
-                    items: yearList.map((int year) {
-                      return DropdownMenuItem<int>(
-                        value: year.toInt(),
-                        child: Text(year.toString(), style: AppTheme.smallLite),
-                      );
-                    }).toList(),
-                    onChanged: (int? value) {
-                      setState(() {
-                        selectedYear = value;
-                        showlog("Selected year = $selectedYear");
-                      });
-                    },
-                  ),
-                ),
-
-                const SizedBox(height: 20),
-
-                AppDropdown(
-                  hint: "Select University/Board",
-                  itemList: uniList,
-                  onChanged: (value) => selectedUni = value,
-                ),
-
-                const SizedBox(height: 20),
-
-                AppDropdown(
-                  hint: "Select College/School",
-                  itemList: collegeList,
-                  onChanged: (value) => selectedCollege,
-                ),
-
-                const SizedBox(height: 20),
-
-                AppButton(
-                  text: "Add",
-                  onTap: () => showlog("Add button taped"),
-                ),
-              ],
-            ),
-          ),
+              ),
+            );
+          },
         );
       },
     );

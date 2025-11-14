@@ -75,15 +75,25 @@ Widget opportunityCard(
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(60),
-            child: Image.asset("assets/images/company_logo.png"),
+            child: Image.asset("assets/images/company_logo.png", scale: 2.5),
           ),
-          SizedBox(width: 20),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(position, style: AppTheme.mediumBold),
-              Text(address, style: AppTheme.smallLite),
-            ],
+          const SizedBox(width: 10),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  position,
+                  overflow: TextOverflow.ellipsis,
+                  style: AppTheme.mediumBold,
+                ),
+                Text(
+                  address,
+                  overflow: TextOverflow.ellipsis,
+                  style: AppTheme.smallLite,
+                ),
+              ],
+            ),
           ),
         ],
       ),

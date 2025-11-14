@@ -1,4 +1,5 @@
-import 'package:connect_buddy/forgot_pass/BLoC/otp_bloc/otp_bloc.dart';
+import 'package:connect_buddy/forgot_pass/BLoC/bloc/forgot_password_bloc.dart';
+
 import 'package:connect_buddy/theme/app_theme.dart';
 import 'package:connect_buddy/utils.dart';
 import 'package:connect_buddy/widgets/app_btn.dart';
@@ -14,8 +15,6 @@ class EnterOtp extends StatefulWidget {
   @override
   State<EnterOtp> createState() => _EnterOtpState();
 }
-
-//TODO: Working here -- implementing BLoC
 
 class _EnterOtpState extends State<EnterOtp> {
   final List<TextEditingController> controllers = List.generate(
@@ -68,7 +67,7 @@ class _EnterOtpState extends State<EnterOtp> {
 
           SizedBox(height: 20),
 
-          BlocListener<OtpBloc, OtpState>(
+          BlocListener<ForgotPasswordBloc, ForgotPasswordState>(
             listener: (context, state) {
               if (state is OtpFailed) {
                 appSnackBar(context, message: "Wrong OTP!", isError: true);
@@ -79,7 +78,7 @@ class _EnterOtpState extends State<EnterOtp> {
                 appSnackBar(context, message: "OTP verified!", isError: false);
               }
             },
-            child: BlocBuilder<OtpBloc, OtpState>(
+            child: BlocBuilder<ForgotPasswordBloc, ForgotPasswordState>(
               builder: (context, state) {
                 if (state is OtpLoading) {
                   return const CircularProgressIndicator();
@@ -92,7 +91,9 @@ class _EnterOtpState extends State<EnterOtp> {
                         text: "Continue",
                         onTap: () {
                           // context.go('/resetPassword');
-                          context.read<OtpBloc>().add(OtpEntered(otp: ""));
+                          context.read<ForgotPasswordBloc>().add(
+                            OtpEntered(otp: ""),
+                          );
                           showlog("Continue button pressed");
                         },
                       ),

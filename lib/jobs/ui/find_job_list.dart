@@ -324,7 +324,11 @@ class _FindJobListState extends State<FindJobList> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("Senior Service Designer", style: AppTheme.mediumBold),
+                  Text(
+                    "Senior Service Designer",
+                    overflow: TextOverflow.ellipsis,
+                    style: AppTheme.mediumBold,
+                  ),
                   const SizedBox(height: 10),
                   Text(
                     "Exp: 1 to 3 years",
